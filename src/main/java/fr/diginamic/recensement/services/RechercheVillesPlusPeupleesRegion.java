@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.diginamic.exception.RegionInconnueException;
 import fr.diginamic.recensement.entites.Recensement;
 import fr.diginamic.recensement.entites.Ville;
 import fr.diginamic.recensement.services.comparators.EnsemblePopComparateur;
@@ -19,7 +20,7 @@ import fr.diginamic.recensement.services.comparators.EnsemblePopComparateur;
 public class RechercheVillesPlusPeupleesRegion extends MenuService {
 
 	@Override
-	public void traiter(Recensement recensement, Scanner scanner) {
+	public void traiter(Recensement recensement, Scanner scanner) throws RegionInconnueException {
 
 		System.out.println("Veuillez saisir un nom de région:");
 		String nomRegion = scanner.nextLine();
@@ -44,6 +45,8 @@ public class RechercheVillesPlusPeupleesRegion extends MenuService {
 				Ville ville = villesRegions.get(i);
 				System.out.println(ville.getNom() + " : " + ville.getPopulation() + " habitants.");
 			}
+		} else {
+			throw new RegionInconnueException("La région " +nomRegion+ " n'a pas été trouvée");
 		}
 
 	}

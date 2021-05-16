@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.diginamic.exception.DepartementInconnuException;
 import fr.diginamic.recensement.entites.Recensement;
 import fr.diginamic.recensement.entites.Ville;
 import fr.diginamic.recensement.services.comparators.EnsemblePopComparateur;
@@ -19,7 +20,7 @@ import fr.diginamic.recensement.services.comparators.EnsemblePopComparateur;
 public class RechercheVillesPlusPeupleesDepartement extends MenuService {
 
 	@Override
-	public void traiter(Recensement recensement, Scanner scanner) {
+	public void traiter(Recensement recensement, Scanner scanner) throws DepartementInconnuException {
 
 		System.out.println("Veuillez saisir un numéro de département:");
 		String nomDept = scanner.nextLine();
@@ -45,7 +46,9 @@ public class RechercheVillesPlusPeupleesDepartement extends MenuService {
 				Ville ville = villesDept.get(i);
 				System.out.println(ville.getNom() + " : " + ville.getPopulation() + " habitants.");
 			}
-		} 
+		} else {
+			throw new DepartementInconnuException("Département " +nomDept+ " non trouvé");
+		}
 	}
 
 }

@@ -2,6 +2,12 @@ package fr.diginamic.recensement;
 
 import java.util.Scanner;
 
+import fr.diginamic.exception.DepartementInconnuException;
+import fr.diginamic.exception.MinAboveMaxException;
+import fr.diginamic.exception.NotNumberException;
+import fr.diginamic.exception.RegionInconnueException;
+import fr.diginamic.exception.UnderZeroException;
+import fr.diginamic.exception.VilleInconnueException;
 import fr.diginamic.recensement.entites.Recensement;
 import fr.diginamic.recensement.services.RechercheDepartementsPlusPeuplees;
 import fr.diginamic.recensement.services.RecherchePopulationBorneService;
@@ -54,27 +60,57 @@ public class Application {
 			switch (choix) {
 			case 1:
 				RecherchePopulationVilleService rechercheVille = new RecherchePopulationVilleService();
-				rechercheVille.traiter(recensement, scanner);
+				try {
+					rechercheVille.traiter(recensement, scanner);
+				} catch (VilleInconnueException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 2:
 				RecherchePopulationDepartementService rechercheDept = new RecherchePopulationDepartementService();
-				rechercheDept.traiter(recensement, scanner);
+				try {
+					rechercheDept.traiter(recensement, scanner);
+				} catch (DepartementInconnuException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 3:
 				RecherchePopulationRegionService rechercheRegion = new RecherchePopulationRegionService();
-				rechercheRegion.traiter(recensement, scanner);
+				try {
+					rechercheRegion.traiter(recensement, scanner);
+				} catch (RegionInconnueException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 4:
 				RecherchePopulationBorneService recherchePopBorne = new RecherchePopulationBorneService();
-				recherchePopBorne.traiter(recensement, scanner);
+				try {
+					recherchePopBorne.traiter(recensement, scanner);
+				} catch (NotNumberException | UnderZeroException | MinAboveMaxException | DepartementInconnuException e) {
+					// TODO Auto-generated catch block
+					System.out.println(e.getMessage());
+				} 
 				break;
 			case 5:
 				RechercheVillesPlusPeupleesDepartement rechercheVillesPlusPeupleesDepartement = new RechercheVillesPlusPeupleesDepartement();
-				rechercheVillesPlusPeupleesDepartement.traiter(recensement, scanner);
+				try {
+					rechercheVillesPlusPeupleesDepartement.traiter(recensement, scanner);
+				} catch (DepartementInconnuException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 6:
 				RechercheVillesPlusPeupleesRegion rechercheVillesPlusPeupleesRegion = new RechercheVillesPlusPeupleesRegion();
-				rechercheVillesPlusPeupleesRegion.traiter(recensement, scanner);
+				try {
+					rechercheVillesPlusPeupleesRegion.traiter(recensement, scanner);
+				} catch (RegionInconnueException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 7:
 				RechercheDepartementsPlusPeuplees rechercherDepartementsPlusPeuplees = new RechercheDepartementsPlusPeuplees();
